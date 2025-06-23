@@ -19,16 +19,3 @@ ABloqueLadrillo::ABloqueLadrillo()
 void ABloqueLadrillo::BeginPlay()
 {
 }
-
-/*
-AActor* ABloqueLadrillo::Clonar() const
-{
-    UWorld* World = GetWorld();
-    if (!World) return nullptr;
-
-    FActorSpawnParameters SpawnParams;
-    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-    return World->SpawnActor<ABloqueLadrillo>(GetClass(), GetActorTransform(), SpawnParams);
-}
-*/

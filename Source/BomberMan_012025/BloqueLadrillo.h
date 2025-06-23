@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueLadrillo : public ABloque 
+class BOMBERMAN_012025_API ABloqueLadrillo : public ABloque
 {
 	GENERATED_BODY()
 

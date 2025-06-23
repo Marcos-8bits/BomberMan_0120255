@@ -1,0 +1,61 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+// IWYU pragma: private, include "ProxyBomba.h"
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class ABomba;
+#ifdef BOMBERMAN_012025_ProxyBomba_generated_h
+#error "ProxyBomba.generated.h already included, missing '#pragma once' in ProxyBomba.h"
+#endif
+#define BOMBERMAN_012025_ProxyBomba_generated_h
+
+#define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execConfigurarBomba);
+
+
+#define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesAProxyBomba(); \
+	friend struct Z_Construct_UClass_AProxyBomba_Statics; \
+public: \
+	DECLARE_CLASS(AProxyBomba, AActor, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_012025"), NO_API) \
+	DECLARE_SERIALIZER(AProxyBomba) \
+	virtual UObject* _getUObject() const override { return const_cast<AProxyBomba*>(this); }
+
+
+#define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_ENHANCED_CONSTRUCTORS \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	AProxyBomba(AProxyBomba&&); \
+	AProxyBomba(const AProxyBomba&); \
+public: \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AProxyBomba); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AProxyBomba); \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AProxyBomba) \
+	NO_API virtual ~AProxyBomba();
+
+
+#define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_9_PROLOG
+#define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_INCLASS_NO_PURE_DECLS \
+	FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h_12_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+template<> BOMBERMAN_012025_API UClass* StaticClass<class AProxyBomba>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_ProxyBomba_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS

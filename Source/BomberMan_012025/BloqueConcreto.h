@@ -17,7 +17,21 @@ public:
 
 	ABloqueConcreto();
 
+
 protected:
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void OnGamePaused(bool bIsPaused);
+
+private:
+	bool bIsPaused;
+
+	// Movimiento oscilatorio
+	FVector StartLocation;
+	float OscillationAmplitude;
+	float OscillationSpeed;
 	
 };

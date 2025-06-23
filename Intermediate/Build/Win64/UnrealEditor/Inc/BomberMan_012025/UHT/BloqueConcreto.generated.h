@@ -14,6 +14,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_012025_BloqueConcreto_generated_h
 
+#define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_BloqueConcreto_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execOnGamePaused);
+
+
 #define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_BloqueConcreto_h_14_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABloqueConcreto(); \
@@ -39,6 +43,7 @@ public: \
 #define FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_BloqueConcreto_h_14_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_BloqueConcreto_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_BloqueConcreto_h_14_INCLASS_NO_PURE_DECLS \
 	FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_BloqueConcreto_h_14_ENHANCED_CONSTRUCTORS \
 private: \

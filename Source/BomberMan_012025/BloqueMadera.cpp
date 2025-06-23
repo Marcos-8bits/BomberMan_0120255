@@ -29,11 +29,3 @@ void ABloqueMadera::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 }
-
-
-AActor* ABloqueMadera::Clonar() const
-{
-	return GetWorld()->SpawnActor<ABloqueMadera>(GetClass(), GetTransform());
-    //return nullptr;
-
-};

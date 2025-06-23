@@ -6,6 +6,9 @@
 			"description": "Lista de cambios no controlados predeterminada",
 			"files": [
 				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/StarterContent/Architecture/Floor_400x400.uasset",
+				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset",
+				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/ThirdPerson/Input/Actions/IA_ColocarBomba.uasset",
+				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/ThirdPerson/Input/IMC_Default.uasset",
 				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/E/T8/46ZIBNTTDDR3AOR2XC9VO6.uasset",
 				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/D/VL/KUT2U1MQ1ND9CXN070OTDM.uasset",
 				"D:/2do Examen Parcial si o si/BomberMan_012025/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/D/OI/BVNTLHAPOPDXURSVGR63ME.uasset",

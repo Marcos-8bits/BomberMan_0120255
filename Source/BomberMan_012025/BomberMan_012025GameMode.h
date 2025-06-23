@@ -41,6 +41,14 @@ private:
 
 	/** Factor de escala: cada celda ? 100 unidades en el mundo */
 	static constexpr float Offset = 100.f;
+
+
+	//void GenerarLaberintoConFlyweight();
+
+	void GenerarLaberintoConFlyweight();
+
+	class UFabricaBloquesFl* Fabrica;
+
 };
 
 

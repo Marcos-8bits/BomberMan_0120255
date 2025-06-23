@@ -1,10 +1,11 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "ProxyBomba.h"
+#include "IStrategyEnemigo.h"
 #include "BomberMan_012025Character.generated.h"
 
 class USpringArmComponent;
@@ -68,5 +69,47 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+protected:
+
+	// Clase Proxy de la bomba para spawn (configurable desde Blueprint)
+	UPROPERTY(EditDefaultsOnly, Category = "Bombas")
+	TSubclassOf<AProxyBomba> ProxyBombaClase;
+
+	// Clase real de la bomba (para que el proxy la configure)
+	UPROPERTY(EditDefaultsOnly, Category = "Bombas")
+	TSubclassOf<ABomba> ClaseRealDeBomba;
+
+	// Función que llamaremos al presionar la tecla para colocar bomba
+	void ColocarBomba();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* PlaceBombAction;
+
+protected:
+	UFUNCTION()
+	void HandlePauseInput();
+
+	UPROPERTY()
+	class APauseCommandInvoker* PauseCommandInvoker;
+
+
+private:
+	UPROPERTY()
+	TScriptInterface<IIStrategyEnemigo> MovimientoActual;
+
+	void EstablecerMovimiento(TScriptInterface<IIStrategyEnemigo> NuevaEstrategia);
+	void AplicarMovimiento();
+
+public:
+	void CambiarAEstrategiaPerseguir();
+	void CambiarAEstrategiaEscapar();
+
+private:
+	UPROPERTY()
+	bool bEstrategiaPerseguirActiva = false;
+
+	UPROPERTY()
+	bool bEstrategiaEscaparActiva = false;
 };
 

@@ -10,6 +10,14 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "PauseCommandInvoker.h"
+#include "PauseGameCommand.h"
+#include "Kismet/GameplayStatics.h"
+#include "ProxyBomba.h"
+#include "StrategyEscaparBomba.h"
+#include "StrategyPerseguirJugador.h"
+#include "IStrategyEnemigo.h"
+
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -18,6 +26,7 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 ABomberMan_012025Character::ABomberMan_012025Character()
 {
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -73,6 +82,10 @@ void ABomberMan_012025Character::NotifyControllerChanged()
 
 void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	UE_LOG(LogTemp, Warning, TEXT("SetupPlayerInputComponent ejecutado"));
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
@@ -90,6 +103,39 @@ void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* Play
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+
+
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		if (PlaceBombAction)
+		{
+			EnhancedInputComponent->BindAction(PlaceBombAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::ColocarBomba);
+		}
+	}
+	else
+	{
+		// Si no usas Enhanced Input, bind directo de tecla:
+		PlayerInputComponent->BindAction("PlaceBomb", IE_Pressed, this, &ABomberMan_012025Character::ColocarBomba);
+	}
+
+
+	if (InputComponent)
+	{
+		InputComponent->BindAction("Pause", IE_Pressed, this, &ABomberMan_012025Character::HandlePauseInput);
+	}
+
+	// Spawnear el invocador de comandos
+	PauseCommandInvoker = GetWorld()->SpawnActor<APauseCommandInvoker>();
+
+	// Configurar el comando de pausa
+	UPauseGameCommand* PauseCommand = NewObject<UPauseGameCommand>();
+	PauseCommand->SetPauseManager(PauseCommandInvoker);
+
+
+	PlayerInputComponent->BindAction("Perseguir", IE_Pressed, this, &ABomberMan_012025Character::CambiarAEstrategiaPerseguir);
+	PlayerInputComponent->BindAction("Escapar", IE_Pressed, this, &ABomberMan_012025Character::CambiarAEstrategiaEscapar);
+
+
 }
 
 void ABomberMan_012025Character::Move(const FInputActionValue& Value)
@@ -126,4 +172,108 @@ void ABomberMan_012025Character::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ABomberMan_012025Character::ColocarBomba()
+{
+	if (!ProxyBombaClase) return;
+
+	FVector Ubicacion = GetActorLocation();
+	FVector Direccion = GetActorForwardVector();  // hacia adelante
+	float Distancia = 100.f;  // o 200.f si quieres más separación
+
+	FVector PosicionAdelantada = Ubicacion + Direccion * Distancia;
+
+	float GridSize = 100.f;
+	float PosX = FMath::GridSnap(PosicionAdelantada.X, GridSize);
+	float PosY = FMath::GridSnap(PosicionAdelantada.Y, GridSize);
+	float PosZ = Ubicacion.Z;
+
+	FVector PosicionBomba(PosX, PosY, PosZ);
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = GetInstigator();
+
+	AProxyBomba* NuevaProxy = GetWorld()->SpawnActor<AProxyBomba>(ProxyBombaClase, PosicionBomba, FRotator::ZeroRotator, SpawnParams);
+
+	if (NuevaProxy)
+	{
+		NuevaProxy->ConfigurarBomba(ClaseRealDeBomba, FVector2D(PosX, PosY));
+		NuevaProxy->ActivarBomba();
+	}
+
+}
+
+void ABomberMan_012025Character::HandlePauseInput()
+{
+	if (PauseCommandInvoker)
+	{
+		PauseCommandInvoker->TogglePause();
+	}
+}
+
+void ABomberMan_012025Character::CambiarAEstrategiaPerseguir()
+{
+	if (!bEstrategiaPerseguirActiva)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Activando estrategia perseguir"));
+		bEstrategiaEscaparActiva = false;
+
+		UStrategyPerseguirJugador* Estrategia = NewObject<UStrategyPerseguirJugador>(this);
+		EstablecerMovimiento(Estrategia);
+		AplicarMovimiento();
+
+		bEstrategiaPerseguirActiva = true;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Desactivando estrategia perseguir"));
+		EstablecerMovimiento(nullptr);
+		bEstrategiaPerseguirActiva = false;
+
+		// Restaurar velocidad original
+		GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	}
+}
+
+void ABomberMan_012025Character::CambiarAEstrategiaEscapar()
+{
+	if (!bEstrategiaEscaparActiva)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Activando estrategia escapar"));
+		bEstrategiaPerseguirActiva = false;
+
+		UStrategyEscaparBomba* Estrategia = NewObject<UStrategyEscaparBomba>(this);
+		EstablecerMovimiento(Estrategia);
+		AplicarMovimiento();
+
+		bEstrategiaEscaparActiva = true;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Desactivando estrategia escapar"));
+		EstablecerMovimiento(nullptr);
+		bEstrategiaEscaparActiva = false;
+
+		// Restaurar salto original
+		GetCharacterMovement()->JumpZVelocity = 700.f;
+	}
+}
+void ABomberMan_012025Character::AplicarMovimiento()
+{
+	if (MovimientoActual)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Aplicando movimiento de estrategia"));
+		MovimientoActual->Mover(this);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No hay estrategia activa"));
+	}
+}
+
+void ABomberMan_012025Character::EstablecerMovimiento(TScriptInterface<IIStrategyEnemigo> NuevaEstrategia)
+{
+	MovimientoActual = NuevaEstrategia;
 }

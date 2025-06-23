@@ -10,14 +10,16 @@
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueMadera : public ABloque //public IBloquePrototype
+class BOMBERMAN_012025_API ABloqueMadera : public ABloque
 {
 	GENERATED_BODY()
 
 public:	
 	ABloqueMadera();
 
-	virtual AActor* Clonar() const;
+	//virtual AActor* Clonar() const;
+
+	virtual bool EsDestructible() const override { return true; }
 
 protected:	
 	virtual void BeginPlay() override;

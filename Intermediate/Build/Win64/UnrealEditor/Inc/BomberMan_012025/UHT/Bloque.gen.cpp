@@ -12,7 +12,9 @@ void EmptyLinkFunctionForGeneratedCodeBloque() {}
 // Begin Cross Module References
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_ABloque();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_ABloque_NoRegister();
+BOMBERMAN_012025_API UClass* Z_Construct_UClass_UBloquePesoLiviano_NoRegister();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_UBloquePrototype_NoRegister();
+BOMBERMAN_012025_API UClass* Z_Construct_UClass_UFactoryMethodBloque_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_BomberMan_012025();
@@ -34,6 +36,15 @@ struct Z_Construct_UClass_ABloque_Statics
 		{ "IncludePath", "Bloque.h" },
 		{ "ModuleRelativePath", "Bloque.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Flyweight_MetaData[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Referencia al flyweight (datos compartidos)\n" },
+#endif
+		{ "ModuleRelativePath", "Bloque.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Referencia al flyweight (datos compartidos)" },
+#endif
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MallaBloque_MetaData[] = {
 		{ "Category", "Componentes" },
 #if !UE_BUILD_SHIPPING
@@ -46,6 +57,7 @@ struct Z_Construct_UClass_ABloque_Statics
 #endif
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Flyweight;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MallaBloque;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
@@ -55,8 +67,10 @@ struct Z_Construct_UClass_ABloque_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloque_Statics::NewProp_Flyweight = { "Flyweight", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloque, Flyweight), Z_Construct_UClass_UBloquePesoLiviano_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Flyweight_MetaData), NewProp_Flyweight_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloque_Statics::NewProp_MallaBloque = { "MallaBloque", nullptr, (EPropertyFlags)0x00200800000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloque, MallaBloque), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MallaBloque_MetaData), NewProp_MallaBloque_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABloque_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloque_Statics::NewProp_Flyweight,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloque_Statics::NewProp_MallaBloque,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloque_Statics::PropPointers) < 2048);
@@ -67,6 +81,7 @@ UObject* (*const Z_Construct_UClass_ABloque_Statics::DependentSingletons[])() = 
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloque_Statics::DependentSingletons) < 16);
 const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ABloque_Statics::InterfaceParams[] = {
 	{ Z_Construct_UClass_UBloquePrototype_NoRegister, (int32)VTABLE_OFFSET(ABloque, IBloquePrototype), false },  // 374187136
+	{ Z_Construct_UClass_UFactoryMethodBloque_NoRegister, (int32)VTABLE_OFFSET(ABloque, IFactoryMethodBloque), false },  // 3981360945
 };
 const UECodeGen_Private::FClassParams Z_Construct_UClass_ABloque_Statics::ClassParams = {
 	&ABloque::StaticClass,
@@ -103,10 +118,10 @@ ABloque::~ABloque() {}
 struct Z_CompiledInDeferFile_FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_Bloque_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloque, ABloque::StaticClass, TEXT("ABloque"), &Z_Registration_Info_UClass_ABloque, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloque), 2016453595U) },
+		{ Z_Construct_UClass_ABloque, ABloque::StaticClass, TEXT("ABloque"), &Z_Registration_Info_UClass_ABloque, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloque), 4079464944U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_Bloque_h_3957075171(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_Bloque_h_2017102765(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_Bloque_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_2do_Examen_Parcial_si_o_si_BomberMan_012025_Source_BomberMan_012025_Bloque_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

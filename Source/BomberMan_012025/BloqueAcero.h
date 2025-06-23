@@ -17,6 +17,7 @@ class BOMBERMAN_012025_API ABloqueAcero : public ABloque
 public:
 
 	ABloqueAcero();	
+	virtual bool EsDestructible() const override { return false; }
 
 
 protected:

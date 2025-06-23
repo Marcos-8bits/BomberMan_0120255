@@ -67,3 +67,21 @@ AActor* ABloque::Clonar() const
 	}
 	
 }
+
+void ABloque::Inicializar(UBloquePesoLiviano* NuevoFlyweight)
+{
+	Flyweight = NuevoFlyweight;
+	if (Flyweight && MallaBloque)
+	{
+		Flyweight->AplicarA(MallaBloque);
+	}
+}
+
+ABloque* ABloque::CrearBloque(UWorld* Mundo, FVector Posicion)
+{
+	if (!Mundo) return nullptr;
+
+	FActorSpawnParameters Params;
+	return Mundo->SpawnActor<ABloque>(GetClass(), Posicion, FRotator::ZeroRotator, Params);
+
+}

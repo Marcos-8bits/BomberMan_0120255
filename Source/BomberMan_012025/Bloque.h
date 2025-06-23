@@ -1,16 +1,16 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BloquePrototype.h"
+#include "BloquePesoLiviano.h"
+#include "FactoryMethodBloque.h"
 #include "Bloque.generated.h"
 
 class UStaticMeshComponent;
 
 UCLASS()
-class BOMBERMAN_012025_API ABloque : public AActor, public IBloquePrototype
+class BOMBERMAN_012025_API ABloque : public AActor, public IBloquePrototype,public IFactoryMethodBloque
 {
 	GENERATED_BODY()
 
@@ -18,7 +18,18 @@ public:
 	// Sets default values for this actor's properties
 	ABloque();
 
+	virtual ABloque* CrearBloque(UWorld* Mundo, FVector Posicion) override;
+
 	virtual AActor* Clonar() const;
+
+	virtual bool EsDestructible() const { return false; }
+
+	// Referencia al flyweight (datos compartidos)
+	UPROPERTY()
+	UBloquePesoLiviano* Flyweight;
+
+	// Inicializar con flyweight
+	void Inicializar(UBloquePesoLiviano* NuevoFlyweight);
 
 protected:
 	// Componente de malla est�tica
